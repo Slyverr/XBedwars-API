@@ -4,9 +4,12 @@
 
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.slyvr.bedwars</groupId>
-    <artifactId>bedwars-api</artifactId>
+    <groupId>com.slyvr.xbedwars</groupId>
+    <artifactId>xbedwars-api</artifactId>
     <version>1.0.0-SNAPSHOT</version>
+
+    <name>XBedwars-API</name>
+    <description>An API for XBedwars, enabling integration and customization.</description>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -29,22 +32,22 @@
         </dependency>
 
         <dependency>
-            <groupId>com.slyvr.libs</groupId>
-            <artifactId>bedwars-libs</artifactId>
+            <groupId>com.slyvr.xbedwars</groupId>
+            <artifactId>xbedwars-libs</artifactId>
             <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
         <dependency>
-            <groupId>com.slyvr.utils</groupId>
-            <artifactId>bedwars-utils</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.slyvr.xbedwars</groupId>
+            <artifactId>xbedwars-utils</artifactId>
+            <version>1.0.0-SNAPSHOT</version>
             <scope>compile</scope>
         </dependency>
 
         <dependency>
             <groupId>org.jetbrains</groupId>
             <artifactId>annotations</artifactId>
-            <version>24.0.0</version>
+            <version>24.0.1</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>
@@ -57,60 +60,45 @@
     </distributionManagement>
 
     <build>
-        <defaultGoal>clean package install</defaultGoal>
-        <finalName>Bedwars-API v${project.version}</finalName>
+        <defaultGoal>clean package javadoc:jar install</defaultGoal>
+        <finalName>${project.name} v${project.version}</finalName>
 
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <version>3.11.0</version>
+                <version>3.13.0</version>
 
                 <configuration>
-                    <source>8</source>
-                    <target>8</target>
+                    <source>1.8</source>
+                    <target>1.8</target>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.5.0</version>
+                <version>3.8.0</version>
 
                 <configuration>
-                    <failOnError>false</failOnError>
-                    <failOnWarnings>false</failOnWarnings>
-
                     <links>
-                        <link>https://hub.spigotmc.org/javadocs/spigot</link>
+                        <link>https://hub.spigotmc.org/javadocs/spigot/</link>
                     </links>
                 </configuration>
             </plugin>
-
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-shade-plugin</artifactId>
-                <version>3.2.4</version>
+                <version>3.6.0</version>
+
+                <configuration>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                </configuration>
 
                 <executions>
                     <execution>
                         <phase>package</phase>
                         <goals>
                             <goal>shade</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.2.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
                         </goals>
                     </execution>
                 </executions>
