@@ -1,32 +1,26 @@
 package com.slyvr.xbedwars.api.game;
 
+import com.google.common.base.Preconditions;
+import com.slyvr.xbedwars.api.lang.Language;
+import org.jetbrains.annotations.NotNull;
+import org.jetbrains.annotations.Nullable;
+import org.jetbrains.annotations.Range;
+
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.Map;
 import java.util.Objects;
 
-import org.jetbrains.annotations.NotNull;
-import org.jetbrains.annotations.Nullable;
-import org.jetbrains.annotations.Range;
-
-import com.google.common.base.Preconditions;
-import com.slyvr.xbedwars.api.lang.Language;
-
-
 public final class GameMode {
 
+    public static final GameMode SOLO = new GameMode("Solo", "bedwars_eight_one", 1, 8);
 
-    public static final GameMode SOLO = new GameMode("Solo", "xbedwars_eight_one", 1, 8);
+    public static final GameMode DUO = new GameMode("Doubles", "bedwars_eight_two", 2, 8);
 
+    public static final GameMode TRIO = new GameMode("Trio", "bedwars_four_three", 3, 4);
 
-    public static final GameMode DUO = new GameMode("Doubles", "xbedwars_eight_two", 2, 8);
-
-
-    public static final GameMode TRIO = new GameMode("Trio", "xbedwars_four_three", 3, 4);
-
-
-    public static final GameMode QUAD = new GameMode("Quad", "xbedwars_four_four", 4, 4);
+    public static final GameMode QUAD = new GameMode("Quad", "bedwars_four_four", 4, 4);
 
     private static final Map<String, GameMode> BY_NAME = new LinkedHashMap<>();
     private static final Map<String, GameMode> BY_COMPOSITION = new HashMap<>();
@@ -44,7 +38,6 @@ public final class GameMode {
     private final String composition;
     private final int team_max;
     private final int teams_count;
-
 
     public GameMode(@NotNull String name, @NotNull String command, @Range(from = 1, to = Integer.MAX_VALUE) int teamMax, @Range(from = 2, to = 8) int teamsCount) {
         Preconditions.checkNotNull(name, "GameMode's name cannot be null!");
@@ -77,33 +70,27 @@ public final class GameMode {
         return custom != null ? custom : name;
     }
 
-
     @NotNull
     public String getPlayCommand() {
         return command;
     }
-
 
     @NotNull
     public String getTeamsComposition() {
         return composition;
     }
 
-
     public int getTeamMax() {
         return team_max;
     }
-
 
     public int getMaxTeams() {
         return teams_count;
     }
 
-
     public int getMaxPlayers() {
         return team_max * teams_count;
     }
-
 
     public int getMinPlayers() {
         return team_max + 1;
@@ -131,24 +118,20 @@ public final class GameMode {
         return "GameMode{Name='" + name + "', Team Max=" + team_max + ", Teams Count=" + teams_count + ",Players Max=" + getMaxPlayers() + '}';
     }
 
-
     @Nullable
     public static GameMode getByName(@NotNull String name) {
         return name != null ? BY_NAME.get(name.toLowerCase()) : null;
     }
-
 
     @Nullable
     public static GameMode getByPlayCommand(@NotNull String command) {
         return command != null ? BY_COMMAND.get(command.toLowerCase()) : null;
     }
 
-
     @Nullable
     public static GameMode getByTeamsComposition(@NotNull String composition) {
         return composition != null ? BY_COMPOSITION.get(composition.toLowerCase()) : null;
     }
-
 
     @Nullable
     public static GameMode getByString(@NotNull String string) {
@@ -166,7 +149,6 @@ public final class GameMode {
 
         return mode;
     }
-
 
     public static void register(@NotNull GameMode mode) {
         Preconditions.checkNotNull(mode, "Cannot register a null mode!");
@@ -188,7 +170,6 @@ public final class GameMode {
         GameMode.BY_COMPOSITION.put(composition, mode);
     }
 
-
     public static boolean canRegister(@NotNull GameMode mode) {
         if (mode == null)
             return false;
@@ -201,7 +182,6 @@ public final class GameMode {
 
         return !BY_COMMAND.containsKey(mode.composition.toLowerCase());
     }
-
 
     @NotNull
     public static GameMode[] values() {
